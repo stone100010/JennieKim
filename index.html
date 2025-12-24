@@ -132,7 +132,7 @@
                 Add Memories
                 <input type="file" id="file-input" multiple accept="image/*">
             </label>
-            <div class="hint-text">Press 'H' to Hide Controls</div>
+            <div class="hint-text">H:隐藏 | R:重置浏览 | M:切换模式 | P:进度</div>
         </div>
     </div>
 
@@ -469,19 +469,8 @@
         }
 
         function createDefaultPhotos() {
-            const canvas = document.createElement('canvas');
-            canvas.width = 512; canvas.height = 512;
-            const ctx = canvas.getContext('2d');
-            ctx.fillStyle = '#050505'; ctx.fillRect(0,0,512,512);
-            ctx.strokeStyle = '#eebb66'; ctx.lineWidth = 15; ctx.strokeRect(20,20,472,472);
-            ctx.font = '500 60px Times New Roman'; ctx.fillStyle = '#eebb66';
-            ctx.textAlign = 'center'; 
-            ctx.fillText("JOYEUX", 256, 230);
-            ctx.fillText("NOEL", 256, 300);
-            
-            const tex = new THREE.CanvasTexture(canvas);
-            tex.colorSpace = THREE.SRGBColorSpace;
-            addPhotoToScene(tex);
+            // 不再创建空图模板，所有照片都来自JennieKim_430px文件夹
+            console.log("跳过空图模板创建，只加载真实照片");
         }
 
         function loadJenniePhotos() {
@@ -662,7 +651,18 @@
                     if (STATE.mode !== 'FOCUS') {
                         STATE.mode = 'FOCUS';
                         const photos = particleSystem.filter(p => p.type === 'PHOTO');
-                        if (photos.length) STATE.focusTarget = photos[Math.floor(Math.random()*photos.length)].mesh;
+                        if (photos.length) {
+                            // 使用浏览管理器获取下一张图片
+                            const nextPhotoIndex = PhotoGallery.viewManager.currentIndex % photos.length;
+                            STATE.focusTarget = photos[nextPhotoIndex].mesh;
+                            
+                            // 更新浏览管理器
+                            PhotoGallery.viewManager.getNextPhoto();
+                            
+                            // 显示浏览进度
+                            const progress = PhotoGallery.viewManager.getProgress();
+                            console.log(`浏览进度: ${progress.current}/${progress.total} (已查看: ${progress.viewed}, 剩余: ${progress.remaining})`);
+                        }
                     }
                 } else if (avgDist < 0.25) {
                     STATE.mode = 'TREE';
@@ -685,11 +685,25 @@
             });
             document.getElementById('file-input').addEventListener('change', handleImageUpload);
             
-            // Toggle UI logic - ONLY hide controls, keep title
+            // 键盘快捷键管理
             window.addEventListener('keydown', (e) => {
                 if (e.key.toLowerCase() === 'h') {
+                    // 隐藏/显示UI控件
                     const controls = document.querySelector('.upload-wrapper');
                     if (controls) controls.classList.toggle('ui-hidden');
+                } else if (e.key.toLowerCase() === 'r') {
+                    // 重置图片浏览顺序
+                    PhotoGallery.viewManager.reset();
+                    console.log('图片浏览顺序已重置');
+                } else if (e.key.toLowerCase() === 'm') {
+                    // 切换浏览模式（顺序/随机）
+                    PhotoGallery.viewManager.toggleMode();
+                } else if (e.key.toLowerCase() === 'p') {
+                    // 显示浏览进度
+                    const progress = PhotoGallery.viewManager.getProgress();
+                    console.log(`浏览进度: ${progress.current}/${progress.total}`);
+                    console.log(`已查看: ${progress.viewed}, 剩余: ${progress.remaining}`);
+                    console.log(`当前模式: ${PhotoGallery.viewManager.isRandomMode ? '随机' : '顺序'}`);
                 }
             });
         }

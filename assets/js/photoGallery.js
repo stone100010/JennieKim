@@ -302,6 +302,79 @@ const PhotoGallery = {
     }
 };
 
+// 图片浏览管理器
+PhotoGallery.viewManager = {
+    currentIndex: 0,
+    viewedPhotos: [],
+    isRandomMode: false,
+    
+    // 初始化浏览管理器
+    init() {
+        this.currentIndex = 0;
+        this.viewedPhotos = [];
+        this.isRandomMode = false;
+        // 初始时打乱顺序，但保持浏览顺序
+        PhotoGallery.shufflePhotos();
+    },
+    
+    // 获取下一张要查看的图片
+    getNextPhoto() {
+        if (this.isRandomMode) {
+            // 随机模式：从未查看的图片中随机选择
+            const unviewed = this.getUnviewedPhotos();
+            if (unviewed.length === 0) {
+                // 所有图片都看过了，重新开始
+                this.viewedPhotos = [];
+                return PhotoGallery.getRandomPhoto();
+            }
+            const randomIndex = Math.floor(Math.random() * unviewed.length);
+            const photo = unviewed[randomIndex];
+            this.viewedPhotos.push(photo);
+            return photo;
+        } else {
+            // 顺序模式：按顺序浏览
+            if (this.currentIndex >= PhotoGallery.photos.length) {
+                this.currentIndex = 0; // 循环到开头
+            }
+            const photo = PhotoGallery.getPhoto(this.currentIndex);
+            this.currentIndex++;
+            return photo;
+        }
+    },
+    
+    // 获取未查看的图片
+    getUnviewedPhotos() {
+        return PhotoGallery.getAllPhotos().filter(photo => 
+            !this.viewedPhotos.includes(photo)
+        );
+    },
+    
+    // 切换浏览模式
+    toggleMode() {
+        this.isRandomMode = !this.isRandomMode;
+        console.log(`切换到${this.isRandomMode ? '随机' : '顺序'}浏览模式`);
+    },
+    
+    // 重置浏览状态
+    reset() {
+        this.currentIndex = 0;
+        this.viewedPhotos = [];
+    },
+    
+    // 获取浏览进度
+    getProgress() {
+        return {
+            current: this.currentIndex,
+            total: PhotoGallery.photos.length,
+            viewed: this.viewedPhotos.length,
+            remaining: this.getUnviewedPhotos().length
+        };
+    }
+};
+
+// 初始化浏览管理器
+PhotoGallery.viewManager.init();
+
 // 导出模块（如果使用模块系统）
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = PhotoGallery;
