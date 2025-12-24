@@ -19,11 +19,7 @@
             /* Remove transition here as we don't hide the whole layer anymore */
         }
         
-        /* When hidden class is applied to specific elements */
-        .ui-hidden {
-            opacity: 0;
-            pointer-events: none !important;
-        }
+        
 
         /* Loading */
         #loader {
@@ -55,40 +51,7 @@
             transition: opacity 0.5s ease; /* Ensure smooth transitions if needed */
         }
 
-        /* Upload Button - Restored & Elegant */
-        .upload-wrapper {
-            margin-top: 20px;
-            pointer-events: auto;
-            text-align: center;
-            transition: opacity 0.5s ease; /* Add transition for smooth hiding */
-        }
-        .upload-btn {
-            background: rgba(20, 20, 20, 0.6); 
-            border: 1px solid rgba(212, 175, 55, 0.4); 
-            color: #d4af37; 
-            padding: 10px 25px; 
-            cursor: pointer; 
-            text-transform: uppercase; 
-            letter-spacing: 3px; 
-            font-size: 10px;
-            transition: all 0.4s;
-            display: inline-block;
-            backdrop-filter: blur(5px);
-        }
-        .upload-btn:hover { 
-            background: #d4af37; 
-            color: #000; 
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
-        }
-        .hint-text {
-            color: rgba(212, 175, 55, 0.5);
-            font-size: 9px;
-            margin-top: 8px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        #file-input { display: none; }
+        
 
         /* Webcam feedback */
         #webcam-wrapper {
@@ -127,13 +90,7 @@
     <div id="ui-layer">
         <h1>Merry Christmas</h1>
         
-        <div class="upload-wrapper">
-            <label class="upload-btn">
-                Add Memories
-                <input type="file" id="file-input" multiple accept="image/*">
-            </label>
-            <div class="hint-text">H:隐藏 | R:重置浏览 | M:切换模式 | P:进度</div>
-        </div>
+        
     </div>
 
     <!-- Webcam hidden structure -->
@@ -537,20 +494,7 @@
             particleSystem.push(new Particle(group, 'PHOTO', false));
         }
         
-        function handleImageUpload(e) {
-            const files = e.target.files;
-            if(!files.length) return;
-            Array.from(files).forEach(f => {
-                const reader = new FileReader();
-                reader.onload = (ev) => {
-                    new THREE.TextureLoader().load(ev.target.result, (t) => {
-                        t.colorSpace = THREE.SRGBColorSpace;
-                        addPhotoToScene(t);
-                    });
-                }
-                reader.readAsDataURL(f);
-            });
-        }
+        
 
         // --- MEDIAPIPE ---
         async function initMediaPipe() {
@@ -683,15 +627,11 @@
                 renderer.setSize(window.innerWidth, window.innerHeight);
                 composer.setSize(window.innerWidth, window.innerHeight);
             });
-            document.getElementById('file-input').addEventListener('change', handleImageUpload);
+            
             
             // 键盘快捷键管理
             window.addEventListener('keydown', (e) => {
-                if (e.key.toLowerCase() === 'h') {
-                    // 隐藏/显示UI控件
-                    const controls = document.querySelector('.upload-wrapper');
-                    if (controls) controls.classList.toggle('ui-hidden');
-                } else if (e.key.toLowerCase() === 'r') {
+                if (e.key.toLowerCase() === 'r') {
                     // 重置图片浏览顺序
                     PhotoGallery.viewManager.reset();
                     console.log('图片浏览顺序已重置');
