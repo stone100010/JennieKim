@@ -1,174 +1,171 @@
-# JennieKim - 圣诞节3D照片画廊
+# JennieKim Christmas 3D Photo Gallery
 
-一个基于Three.js的沉浸式3D圣诞树照片画廊，展示Jennie Kim的照片集。
+An immersive 3D Christmas tree photo gallery showcasing Jennie Kim's photo collection with gesture control interactions.
 
-## 🎄 项目特色
+## 🎄 Features
 
-- **3D圣诞树展示**: 照片以装饰品形式挂在3D圣诞树上
-- **手势控制**: 支持MediaPipe手势识别进行交互
-- **动态粒子效果**: 金色、绿色、红色装饰球和糖果手杖
-- **照片上传**: 支持用户上传自己的照片
-- **响应式设计**: 适配各种屏幕尺寸
-- **高质量渲染**: 使用UnrealBloom后处理效果
+- **3D Christmas Tree Display**: Photos displayed as ornaments on a 3D Christmas tree
+- **Gesture Control**: MediaPipe-powered hand gesture recognition for interaction
+- **Dynamic Particle Effects**: Gold, green, red decorative balls and candy canes
+- **Random Photo Browsing**: Smart random photo navigation without repetition
+- **High-Quality Rendering**: UnrealBloom post-processing effects
+- **Responsive Design**: Adapts to various screen sizes
+- **Offline Operation**: Fully localized with no CDN dependencies
 
-## 📁 项目结构
+## 📁 Project Structure
 
 ```
 Merry Christmas/
-├── index.html              # 主页面
-├── README.md               # 项目说明文档
-├── resize_images.py        # 图片处理脚本
-├── assets/                 # 资源文件夹
+├── index.html              # Main application page
+├── README.md               # Project documentation (English)
+├── README_CN.md            # 项目说明文档 (Chinese)
+├── assets/                 # Resource folder
 │   ├── js/
-│   │   └── photoGallery.js # 照片库管理
-│   ├── models/             # MediaPipe模型文件
-│   └── wasm/               # WebAssembly文件
-├── JennieKim/              # 原始照片文件夹
-└── JennieKim_430px/        # 处理后的照片文件夹(高度430px)
+│   │   └── photoGallery.js # Photo gallery management
+│   ├── models/             # MediaPipe model files
+│   │   └── hand_landmarker.task
+│   └── wasm/               # WebAssembly files
+│       ├── vision_wasm_internal.js
+│       └── vision_wasm_internal.wasm
+├── JennieKim/              # Original photo folder
+└── JennieKim_430px/        # Processed photos (430px height)
 ```
 
-## 🚀 快速开始
+## 🚀 Quick Start
 
-### 本地运行
+### Local Development
 
-1. 克隆仓库
+1. Clone the repository
 ```bash
 git clone https://github.com/stone100010/JennieKim.git
-cd JennieKim
+cd "Merry Christmas"
 ```
 
-2. 启动本地服务器
+2. Start a local server
 ```bash
-# 使用Python
+# Using Python
 python -m http.server 8000
 
-# 或使用Node.js
+# Using Node.js
 npx serve .
 
-# 或使用PHP
+# Using PHP
 php -S localhost:8000
 ```
 
-3. 在浏览器中访问 `http://localhost:8000`
+3. Open `http://localhost:8000` in your browser
 
-### 照片处理
+## 🎮 Interaction Controls
 
-如果需要处理新的照片：
+### Hand Gestures (Camera Required)
+- **✊ Fist**: Switch to tree formation mode
+- **✋ Open Palm**: Switch to scatter mode  
+- **🤏 Pinch**: Focus on a random photo
 
-```bash
-# 确保已安装Pillow
-pip install Pillow
+### Debug Keyboard Shortcuts
+- **R**: Reset photo browsing sequence
+- **M**: Toggle between random/sequential browsing modes
+- **P**: Show browsing progress in console
 
-# 运行图片处理脚本
-python resize_images.py
-```
+## 🛠️ Technical Stack
 
-该脚本会将`JennieKim`文件夹中的所有图片调整为高度430px，保持宽高比，并保存到`JennieKim_430px`文件夹。
+- **Three.js**: 3D graphics rendering
+- **MediaPipe**: Hand gesture recognition
+- **WebGL**: Hardware-accelerated rendering
+- **Post-processing**: Bloom effects and tone mapping
+- **WebAssembly**: MediaPipe local processing
 
-## 🎮 交互控制
+## 📸 Photo Management
 
-### 键盘控制
-- **H键**: 显示/隐藏上传控件
+The project includes 260+ optimized Jennie Kim photos:
 
-### 手势控制（需要摄像头权限）
-- **握拳**: 切换到树形模式
-- **张开手掌**: 切换到散开模式  
-- **捏合手势**: 聚焦随机照片
+- **Format**: WebP
+- **Dimensions**: Height 430px, aspect ratio preserved
+- **Total Count**: 260+ photos
+- **Location**: `JennieKim_430px/`
 
-### 鼠标控制
-- **拖拽**: 旋转3D场景
-- **滚轮**: 缩放视图
-- **上传按钮**: 添加自定义照片
+Photos are managed through the `photoGallery.js` module:
+- Random photo selection
+- Shuffle functionality
+- Duplicate prevention
+- Progress tracking
 
-## 🛠️ 技术栈
+## 🎨 Visual Features
 
-- **Three.js**: 3D图形渲染
-- **MediaPipe**: 手势识别
-- **WebGL**: 硬件加速渲染
-- **Post-processing**: 后处理效果
-- **HTML5**: 现代Web标准
+- **Particle System**: 1500 decorative particles + 2500 dust particles
+- **Lighting System**: Multiple light sources including ambient, point, and spot lights
+- **Material Effects**: Metallic finishes, glow effects, transparency
+- **Post-processing**: Bloom effects, tone mapping
+- **Real Aspect Ratio**: Photos maintain original proportions
 
-## 📸 照片管理
+## ⚙️ Configuration
 
-项目包含260张Jennie Kim的照片，已优化为430px高度：
-
-- 原始格式：WebP
-- 优化尺寸：高度430px，保持宽高比
-- 总数量：260张
-- 存储位置：`JennieKim_430px/`
-
-照片通过`photoGallery.js`模块管理，支持：
-- 随机获取照片
-- 打乱照片顺序
-- 获取指定索引照片
-- 获取照片总数
-
-## 🎨 视觉效果
-
-- **粒子系统**: 1500个装饰粒子 + 2500个尘埃粒子
-- **光照系统**: 多光源设置，包括环境光、点光源和聚光灯
-- **材质效果**: 金属质感、发光效果、透明度处理
-- **后处理**: 辉光效果、色调映射
-
-## 🔧 配置选项
-
-主要配置参数在`index.html`中的CONFIG对象：
+Main configuration in the `CONFIG` object:
 
 ```javascript
 const CONFIG = {
     colors: {
-        bg: 0x000000,           // 背景色
-        champagneGold: 0xffd966, // 香槟金
-        deepGreen: 0x03180a,     // 深绿色
-        accentRed: 0x990000,     // 强调红
+        bg: 0x000000,           // Background color
+        champagneGold: 0xffd966, // Champagne gold
+        deepGreen: 0x03180a,     // Deep green
+        accentRed: 0x990000,     // Accent red
     },
     particles: {
-        count: 1500,     // 装饰粒子数量
-        dustCount: 2500, // 尘埃粒子数量
-        treeHeight: 24,  // 树高度
-        treeRadius: 8    // 树半径
+        count: 1500,     // Decorative particles
+        dustCount: 2500, // Dust particles
+        treeHeight: 24,  // Tree height
+        treeRadius: 8    // Tree radius
     }
 };
 ```
 
-## 🌟 特色功能
+## 🌟 Key Features
 
-1. **智能照片布局**: 照片自动适配3D空间，保持正确宽高比
-2. **流畅动画**: 所有过渡效果都经过优化，确保60fps流畅体验
-3. **手势识别**: 实时手势检测，支持多种交互模式
-4. **动态加载**: 照片异步加载，不阻塞页面渲染
-5. **响应式设计**: 自动适配不同设备和屏幕尺寸
+1. **Smart Photo Layout**: Automatic 3D space adaptation with correct aspect ratios
+2. **Smooth Animations**: Optimized transitions for 60fps performance
+3. **Real-time Gesture Detection**: Live hand tracking with multiple interaction modes
+4. **Dynamic Loading**: Asynchronous photo loading without blocking
+5. **Responsive Design**: Automatic adaptation to different devices and screens
+6. **Random Browsing**: Intelligent random photo selection without repetition
 
-## 📱 浏览器兼容性
+## 📱 Browser Compatibility
 
 - Chrome 90+
 - Firefox 88+
 - Safari 14+
 - Edge 90+
 
-需要支持：
+### Requirements:
 - WebGL 2.0
 - ES6 Modules
 - MediaPipe WebAssembly
 - getUserMedia API
+- Secure context (HTTPS or localhost)
 
-## 🤝 贡献指南
+## 🔧 Performance Optimizations
 
-1. Fork 项目
-2. 创建功能分支 (`git checkout -b feature/AmazingFeature`)
-3. 提交更改 (`git commit -m 'Add some AmazingFeature'`)
-4. 推送到分支 (`git push origin feature/AmazingFeature`)
-5. 打开 Pull Request
+- **Local MediaPipe**: All models and WASM files localized for faster loading
+- **Efficient Particle System**: Optimized rendering for smooth performance
+- **Smart Photo Management**: Memory-efficient texture loading
+- **Gesture Recognition**: GPU-accelerated hand tracking
 
-## 📄 许可证
+## 🎯 Production Ready
 
-本项目采用 MIT 许可证 - 查看 [LICENSE](LICENSE) 文件了解详情
+This version is optimized for client deployment:
+- Clean, minimal UI focused on photo display
+- No upload functionality or user controls
+- Default random browsing for engaging experience
+- Fully offline operation
 
-## 🎁 致谢
+## 📄 License
 
-- Three.js 团队提供的优秀3D库
-- Google MediaPipe 手势识别技术
-- 所有照片素材的创作者
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+
+## 🎁 Acknowledgments
+
+- Three.js team for the excellent 3D library
+- Google MediaPipe for gesture recognition technology
+- All photo content creators
 
 ---
 
