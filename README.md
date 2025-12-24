@@ -2,6 +2,10 @@
 
 An immersive 3D Christmas tree photo gallery showcasing Jennie Kim's photo collection with gesture control interactions.
 
+## 🖼️ Preview
+
+![Christmas Tree Photo Gallery](assets/images/preview.png)
+
 ## 🎄 Features
 
 - **3D Christmas Tree Display**: Photos displayed as ornaments on a 3D Christmas tree
@@ -18,17 +22,19 @@ An immersive 3D Christmas tree photo gallery showcasing Jennie Kim's photo colle
 Merry Christmas/
 ├── index.html              # Main application page
 ├── README.md               # Project documentation (English)
-├── README_CN.md            # 项目说明文档 (Chinese)
+├── README_CN.md            # Project documentation (Chinese)
+├── LICENSE                 # MIT License file
 ├── assets/                 # Resource folder
+│   ├── images/
+│   │   └── preview.png     # Application screenshot
 │   ├── js/
-│   │   └── photoGallery.js # Photo gallery management
+│   │   └── photoGallery.js # Photo gallery management & browsing system
 │   ├── models/             # MediaPipe model files
 │   │   └── hand_landmarker.task
 │   └── wasm/               # WebAssembly files
 │       ├── vision_wasm_internal.js
 │       └── vision_wasm_internal.wasm
-├── JennieKim/              # Original photo folder
-└── JennieKim_430px/        # Processed photos (430px height)
+└── JennieKim_430px/        # Processed photos (260+ photos, 430px height)
 ```
 
 ## 🚀 Quick Start
