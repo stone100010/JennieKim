@@ -306,13 +306,13 @@ const PhotoGallery = {
 PhotoGallery.viewManager = {
     currentIndex: 0,
     viewedPhotos: [],
-    isRandomMode: true,
+    isRandomMode: false,
     
     // 初始化浏览管理器
     init() {
         this.currentIndex = 0;
         this.viewedPhotos = [];
-        this.isRandomMode = true;
+        this.isRandomMode = false;
         // 初始时打乱顺序，但保持浏览顺序
         PhotoGallery.shufflePhotos();
     },
