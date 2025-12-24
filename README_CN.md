@@ -7,7 +7,7 @@
 本项目全流程由 **iFlow CLI** 和 **GLM-4.7** 对话式完成开发。感谢 iFlow 团队和 GLM 大模型团队开发的伟大作品以及所有工作人员的辛勤付出！🎉🎉🎉
 
 - **iFlow CLI**: [https://platform.iflow.cn/](https://platform.iflow.cn/) - 超智能的极致心流体验
-- **GLM-4.7**: [https://bigmodel.cn/](https://bigmodel.cn/) - Video Coding能力全球开源第一
+- **GLM-4.7**: [https://bigmodel.cn/](https://bigmodel.cn/) - Vibe Coding能力全球开源第一
 
 ## 🖼️ 效果预览
 

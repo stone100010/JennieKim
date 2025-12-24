@@ -7,7 +7,7 @@ An immersive 3D Christmas tree photo gallery showcasing Jennie Kim's photo colle
 This project was developed entirely through conversational development using **iFlow CLI** and **GLM-4.7**. Special thanks to the iFlow team and GLM large model team for their incredible tools and the hard work of all staff members! 🎉🎉🎉
 
 - **iFlow CLI**: [https://platform.iflow.cn/](https://platform.iflow.cn/) - The ultimate intelligent flow experience
-- **GLM-4.7**: [https://bigmodel.cn/](https://bigmodel.cn/) - Global open-source leader in Video Coding capabilities
+- **GLM-4.7**: [https://bigmodel.cn/](https://bigmodel.cn/) - Global open-source leader in Vibe Coding capabilities
 
 ## 🖼️ Preview
 
